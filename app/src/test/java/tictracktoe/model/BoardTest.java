@@ -28,9 +28,9 @@ public class BoardTest {
 
     @Test
     public void placingOnOccupiedCellThrows() {
-        Position p = new Position(0, 0);
-        board.place(p, Mark.X);
-        assertThrows(InvalidMoveException.class, () -> board.place(p, Mark.O));
+        Position position = new Position(0, 0);
+        board.place(position, Mark.X);
+        assertThrows(InvalidMoveException.class, () -> board.place(position, Mark.O));
     }
 
     @Test
@@ -40,16 +40,16 @@ public class BoardTest {
 
     @Test
     public void clearRestoresEmptyCell() {
-        Position p = new Position(2, 2);
-        board.place(p, Mark.O);
-        board.clear(p);
-        assertTrue(board.isEmpty(p));
+        Position position = new Position(2, 2);
+        board.place(position, Mark.O);
+        board.clear(position);
+        assertTrue(board.isEmpty(position));
     }
 
     @Test
     public void boardIsFullWhenEveryCellIsMarked() {
-        for (Position p : board.emptyPositions()) {
-            board.place(p, Mark.X);
+        for (Position position : board.emptyPositions()) {
+            board.place(position, Mark.X);
         }
         assertTrue(board.isFull());
     }

@@ -40,7 +40,7 @@ public class Board {
     }
 
     private void notifyObservers(Position changed) {
-        for(BoardObserver observer:observers) {
+        for(BoardObserver observer : observers) {
             observer.onBoardChanged(this, changed);
         }
     }

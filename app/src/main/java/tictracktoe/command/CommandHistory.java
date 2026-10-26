@@ -3,6 +3,7 @@ package tictracktoe.command;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+/** Runs commands and undoes them starting with most recent*/
 public class CommandHistory {
     private final Deque<Command> executedCommands = new ArrayDeque<>();
 
@@ -11,16 +12,14 @@ public class CommandHistory {
         executedCommands.push(command);
     }
 
-    public Boolean canUndo() {
+    public boolean canUndo() {
         return !executedCommands.isEmpty();
     }
 
-    public void undo(){
+    public void undo() {
         if(!canUndo()) {
             throw new IllegalStateException("No command to undo");
         }
         executedCommands.pop().undo();
     }
 }
-
-

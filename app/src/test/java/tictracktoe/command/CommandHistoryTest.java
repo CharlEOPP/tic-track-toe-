@@ -27,10 +27,10 @@ public class CommandHistoryTest {
 
     @Test
     public void executingCommandRunsAndAllowsUndo() {
-        Position p = new Position(0,0);
-        history.execute(new MoveCommand(board, p, Mark.X));
+        Position position = new Position(0,0);
+        history.execute(new MoveCommand(board, position, Mark.X));
 
-        assertEquals(Mark.X, board.getMark(p));
+        assertEquals(Mark.X, board.getMark(position));
         assertTrue(history.canUndo());
     }
 
@@ -55,13 +55,13 @@ public class CommandHistoryTest {
 
     @Test
     public void failedCommandNotRecorded() {
-        Position p = new Position(0,0);
-        history.execute(new MoveCommand(board, p, Mark.X));
-        assertThrows(InvalidMoveException.class, () -> history.execute(new MoveCommand(board, p, Mark.O)));
+        Position position = new Position(0,0);
+        history.execute(new MoveCommand(board, position, Mark.X));
+        assertThrows(InvalidMoveException.class, () -> history.execute(new MoveCommand(board, position, Mark.O)));
 
         history.undo();
 
-        assertTrue(board.isEmpty(p));
+        assertTrue(board.isEmpty(position));
         assertFalse(history.canUndo());
     }
 }
