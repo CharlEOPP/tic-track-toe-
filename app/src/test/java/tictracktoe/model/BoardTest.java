@@ -5,41 +5,41 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BoardTest {
+public class BoardTest {
     private Board board;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         board = new Board();
     }
 
     @Test
-    void newBoardIsEmptyAndNotFull() {
+    public void newBoardIsEmptyAndNotFull() {
         assertEquals(9, board.emptyPositions().size());
         assertFalse(board.isFull());
     }
 
     @Test
-    void placeMarksTheCell() {
+    public void placeMarksTheCell() {
         Position center = new Position(1, 1);
         board.place(center, Mark.X);
         assertEquals(Mark.X, board.getMark(center));
     }
 
     @Test
-    void placingOnOccupiedCellThrows() {
+    public void placingOnOccupiedCellThrows() {
         Position p = new Position(0, 0);
         board.place(p, Mark.X);
         assertThrows(InvalidMoveException.class, () -> board.place(p, Mark.O));
     }
 
     @Test
-    void placingOffTheBoardThrows() {
+    public void placingOffTheBoardThrows() {
         assertThrows(InvalidMoveException.class, () -> board.place(new Position(3, 0), Mark.X));
     }
 
     @Test
-    void clearRestoresEmptyCell() {
+    public void clearRestoresEmptyCell() {
         Position p = new Position(2, 2);
         board.place(p, Mark.O);
         board.clear(p);
@@ -47,7 +47,7 @@ class BoardTest {
     }
 
     @Test
-    void boardIsFullWhenEveryCellIsMarked() {
+    public void boardIsFullWhenEveryCellIsMarked() {
         for (Position p : board.emptyPositions()) {
             board.place(p, Mark.X);
         }

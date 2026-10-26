@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HumanPlayerTest {
+public class HumanPlayerTest {
     @Test
-    void chooseMoveDelegatesToInjectedMoveSource() {
+    public void chooseMoveDelegatesToInjectedMoveSource() {
         Position scripted = new Position(0, 2);
         Player player = new HumanPlayer("Charlie", Mark.X, (who, board) -> scripted);
 
@@ -14,7 +14,7 @@ class HumanPlayerTest {
     }
 
     @Test
-    void playerCannotUseEmptyMark() {
+    public void playerCannotUseEmptyMark() {
         assertThrows(IllegalArgumentException.class,
                 () -> new HumanPlayer("Nobody", Mark.EMPTY, (who, board) -> null));
     }

@@ -13,8 +13,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class BoardObserverTest {
-    /** Test double that records every notification it receives. */
+public class BoardObserverTest {
+    //Test double that records every notification it receives.
     private static class RecordingObserver implements BoardObserver {
         final List<Position> changes = new ArrayList<>();
 
@@ -28,21 +28,21 @@ class BoardObserverTest {
     private RecordingObserver observer;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         board = new Board();
         observer = new RecordingObserver();
         board.addObserver(observer);
     }
 
     @Test
-    void observerIsNotifiedWhenMarkIsPlaced() {
+    public void observerIsNotifiedWhenMarkIsPlaced() {
         Position p = new Position(1, 1);
         board.place(p, Mark.X);
         assertEquals(List.of(p), observer.changes);
     }
 
     @Test
-    void observerIsNotifiedWhenCellIsCleared() {
+    public void observerIsNotifiedWhenCellIsCleared() {
         Position p = new Position(0, 0);
         board.place(p, Mark.O);
         board.clear(p);
@@ -50,7 +50,7 @@ class BoardObserverTest {
     }
 
     @Test
-    void everyRegisteredObserverIsNotified() {
+    public void everyRegisteredObserverIsNotified() {
         RecordingObserver second = new RecordingObserver();
         board.addObserver(second);
 
@@ -61,14 +61,14 @@ class BoardObserverTest {
     }
 
     @Test
-    void removedObserverIsNoLongerNotified() {
+    public void removedObserverIsNoLongerNotified() {
         board.removeObserver(observer);
         board.place(new Position(0, 1), Mark.X);
         assertTrue(observer.changes.isEmpty());
     }
 
     @Test
-    void rejectedMoveDoesNotNotify() {
+    public void rejectedMoveDoesNotNotify() {
         Position p = new Position(0, 0);
         board.place(p, Mark.X);
         assertThrows(InvalidMoveException.class, () -> board.place(p, Mark.O));
