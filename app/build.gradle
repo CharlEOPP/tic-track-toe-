@@ -1,0 +1,33 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// Compile for Java 17 on any installed JDK 17 or newer.
+tasks.withType(JavaCompile).configureEach {
+    options.release = 17
+}
+
+application {
+    mainClass = 'tictracktoe.App'
+}
+
+// Lets the console UI read keyboard input during ./gradlew run
+run {
+    standardInput = System.in
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'failed', 'skipped'
+    }
+}

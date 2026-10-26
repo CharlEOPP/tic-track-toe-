@@ -1,0 +1,17 @@
+# Gradle
+.gradle/
+build/
+
+# IDEs
+.idea/
+*.iml
+out/
+.vscode/
+bin/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Persisted stats (runtime data, not source)
+stats.csv
