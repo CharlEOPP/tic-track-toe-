@@ -3,12 +3,14 @@ package tictracktoe.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import tictracktoe.observer.BoardObserver;
 
 public class Board {
     public static final int DEFAULT_SIZE = 3;
 
     private final int size;
     private final Mark[][] cells;
+    private final List<BoardObserver> observers = new ArrayList<>();
 
     public Board() {
         this(DEFAULT_SIZE);
@@ -29,6 +31,20 @@ public class Board {
         return size;
     }
 
+    public void addObserver(BoardObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(BoardObserver observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyObservers(Position changed) {
+        for(BoardObserver observer:observers) {
+            observer.onBoardChanged(this, changed);
+        }
+    }
+
     public Mark getMark(Position p) {
         requireInBounds(p);
         return cells[p.row()][p.col()];
@@ -46,11 +62,13 @@ public class Board {
             throw new InvalidMoveException("Cell " + p + " is already taken");
         }
         cells[p.row()][p.col()] = mark;
+        notifyObservers(p);
     }
 
     public void clear(Position p) {
         requireInBounds(p);
         cells[p.row()][p.col()] = Mark.EMPTY;
+        notifyObservers(p);
     }
 
     public boolean isFull() {
