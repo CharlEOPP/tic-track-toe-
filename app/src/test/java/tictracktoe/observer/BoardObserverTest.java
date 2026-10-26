@@ -36,17 +36,17 @@ public class BoardObserverTest {
 
     @Test
     public void observerIsNotifiedWhenMarkIsPlaced() {
-        Position p = new Position(1, 1);
-        board.place(p, Mark.X);
-        assertEquals(List.of(p), observer.changes);
+        Position position = new Position(1, 1);
+        board.place(position, Mark.X);
+        assertEquals(List.of(position), observer.changes);
     }
 
     @Test
     public void observerIsNotifiedWhenCellIsCleared() {
-        Position p = new Position(0, 0);
-        board.place(p, Mark.O);
-        board.clear(p);
-        assertEquals(List.of(p, p), observer.changes);
+        Position position = new Position(0, 0);
+        board.place(position, Mark.O);
+        board.clear(position);
+        assertEquals(List.of(position, position), observer.changes);
     }
 
     @Test
@@ -69,9 +69,9 @@ public class BoardObserverTest {
 
     @Test
     public void rejectedMoveDoesNotNotify() {
-        Position p = new Position(0, 0);
-        board.place(p, Mark.X);
-        assertThrows(InvalidMoveException.class, () -> board.place(p, Mark.O));
+        Position position = new Position(0, 0);
+        board.place(position, Mark.X);
+        assertThrows(InvalidMoveException.class, () -> board.place(position, Mark.O));
         assertEquals(1, observer.changes.size());
     }
 }

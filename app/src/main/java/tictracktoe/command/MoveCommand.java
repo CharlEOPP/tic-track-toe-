@@ -4,8 +4,8 @@ import tictracktoe.model.Board;
 import tictracktoe.model.Mark;
 import tictracktoe.model.Position;
 
-
-public class MoveCommand implements  Command {
+/** Concrete command for placing a mark on the board, clearable with undo.*/
+public class MoveCommand implements Command {
     private final Board board;
     private final Position position;
     private final Mark mark;
